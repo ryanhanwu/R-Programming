@@ -14,11 +14,11 @@ best <- function(state, outcome) {
   if (nrow(outcomeData[targetOutcome$Outcome == outcome, ]) == 0) 
     stop("invalid outcome")
   
-  state_data <- outcomeData[outcomeData$State==state, ] #Select State Data
+  stateData <- outcomeData[outcomeData$State==state, ] #Select State Data
   targetColumn <- targetOutcome[targetOutcome$Outcome == outcome, ]$Col #Select Target Column
   
-  suppressWarnings(state_data[, targetColumn] <- as.numeric(state_data[, targetColumn])) #as.numeric
+  suppressWarnings(stateData[, targetColumn] <- as.numeric(stateData[, targetColumn])) #as.numeric
   
   ## Return hospital name in that state with lowest 30-day death rate
-  state_data[which.min(state_data[, targetColumn]), ]$Hospital.Name 
+  stateData[which.min(stateData[, targetColumn]), ]$Hospital.Name 
 }

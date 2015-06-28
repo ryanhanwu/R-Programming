@@ -14,21 +14,21 @@ rankhospital <- function(state, outcome, num = "best") {
   if (nrow(outcomeData[targetOutcome$Outcome == outcome, ]) == 0) 
     stop("invalid outcome")
   
-  state_data <- outcomeData[outcomeData$State==state, ] #Select State Data
+  stateData <- outcomeData[outcomeData$State==state, ] #Select State Data
   targetColumn <- targetOutcome[targetOutcome$Outcome == outcome, ]$Col #Select Target Column
   
   ## Return hospital name in that state with the given rank
   ## 30-day death rate
-  suppressWarnings(state_data[, targetColumn] <- as.numeric(state_data[, targetColumn])) 
-  state_data <- state_data[order(state_data[, targetColumn], 
-                                 state_data$Hospital.Name, 
+  suppressWarnings(stateData[, targetColumn] <- as.numeric(stateData[, targetColumn])) 
+  stateData <- stateData[order(stateData[, targetColumn], 
+                                 stateData$Hospital.Name, 
                                  na.last = NA), ] # Remove NA
   
   if (num == "best") 
     num <- 1
   if (num == "worst") 
-    num <- nrow(state_data)
+    num <- nrow(stateData)
   
-  state_data[as.numeric(num), ]$Hospital.Name
+  stateData[as.numeric(num), ]$Hospital.Name
   
 }
